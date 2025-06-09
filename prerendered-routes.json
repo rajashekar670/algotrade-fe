@@ -1,8 +1,0 @@
-{
-  "routes": {
-    "/algotrade-fe/create-strategy": {},
-    "/algotrade-fe/create-strategy/short-straddle": {},
-    "/algotrade-fe/login": {},
-    "/algotrade-fe/register": {}
-  }
-}
