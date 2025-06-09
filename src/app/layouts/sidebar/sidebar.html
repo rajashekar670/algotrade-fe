@@ -1,0 +1,59 @@
+<aside class="sidebar">
+  <div class="sidebar-header">Algo Trade</div>
+
+  <mat-nav-list class="main-nav">
+    <!-- Dashboard -->
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <span class="menu-item">
+        <mat-icon>dashboard</mat-icon>
+        <span class="label">Dashboard</span>
+      </span>
+    </a>
+
+    <!-- Strategies (Expandable) -->
+    <a mat-list-item (click)="toggleStrategySubmenu()" class="expandable">
+      <span class="menu-item">
+       <mat-icon>add</mat-icon>
+        <span class="label">Create</span>
+        <mat-icon class="arrow-icon">{{ showStrategySubmenu ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </span>
+    </a>
+
+    @if (showStrategySubmenu) {
+    <ng-container>
+      <a mat-list-item routerLink="/strategies/short-straddle" routerLinkActive="active" class="sub-item">
+        <span>Short Straddle</span>
+      </a>
+      <a mat-list-item routerLink="/strategies/short-strangle" routerLinkActive="active" class="sub-item">
+        <span>Short Strangle</span>
+      </a>
+    </ng-container>
+    }
+
+    <!-- Strategies -->
+    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+      <span class="menu-item">
+        <mat-icon>view_list</mat-icon>
+        <span class="label">Strategies</span>
+
+      </span>
+    </a>
+
+    <a mat-list-item routerLink="/profile" routerLinkActive="active">
+      <span class="menu-item">
+        <mat-icon>person</mat-icon>
+        <span class="label">Profile</span>
+      </span>
+    </a>
+  </mat-nav-list>
+
+  <!-- Logout fixed at bottom -->
+  <mat-nav-list class="logout-nav">
+    <a mat-list-item routerLink="/logout">
+      <span class="menu-item">
+        <mat-icon>logout</mat-icon>
+        <span class="label">Logout</span>
+      </span>
+    </a>
+  </mat-nav-list>
+</aside>

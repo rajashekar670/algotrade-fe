@@ -1,0 +1,255 @@
+<mat-card class="form-container">
+  <mat-card-title>Strategy Form</mat-card-title>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-section">
+    <!-- Section 1 -->
+    <h3>Basic Details</h3>
+    <div class="form-grid">
+      <app-form-text-input
+        class="text-input"
+        type="text"
+        [parentForm]="form"
+        fieldName="user"
+        label="User"
+        formControlName="user"
+      ></app-form-text-input>
+      <app-form-text-input
+        class="text-input"
+        type="text"
+        [parentForm]="form"
+        fieldName="id"
+        label="Id"
+        formControlName="id"
+      ></app-form-text-input>
+      <app-form-instrument-dropdown
+      fieldName="instrument"
+      [parentForm]="form"
+      >
+      </app-form-instrument-dropdown>
+      <app-form-expirydate-dropdown
+        fieldName="expiryDate"
+        [parentForm]="form"
+        instrumentControlName="instrument"
+      >
+      </app-form-expirydate-dropdown>
+      <app-form-text-input
+        class="text-input"
+        type="number"
+        [parentForm]="form"
+        fieldName="quantity"
+        label="Quantity"
+        formControlName="quantity"
+      ></app-form-text-input>
+      <app-form-select-input
+        type="text"
+        [parentForm]="form"
+        fieldName="status"
+        label="Status"
+        formControlName="status"
+        [items]="statusList"
+      ></app-form-select-input>
+      <app-form-text-input
+        class="text-input"
+        type="number"
+        [parentForm]="form"
+        fieldName="frequency"
+        label="Frequency"
+        formControlName="frequency"
+      ></app-form-text-input>
+      <app-form-text-input
+        class="text-input"
+        type="text"
+        [parentForm]="form"
+        fieldName="label"
+        label="Label"
+        formControlName="label"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        class="text-input"
+        type="number"
+        [parentForm]="form"
+        fieldName="pl"
+        label="Profit & Loss"
+        formControlName="pl"
+      ></app-form-text-input>
+      <app-form-text-input
+        class="text-input"
+        type="text"
+        [parentForm]="form"
+        fieldName="broker"
+        label="Broker"
+        formControlName="broker"
+      ></app-form-text-input>
+      <app-form-select-input
+        type="text"
+        [parentForm]="form"
+        fieldName="expiry"
+        label="Expiry"
+        formControlName="expiry"
+        [items]="expiryList"
+      ></app-form-select-input>
+
+      <app-form-text-input
+        [parentForm]="form"
+        fieldName="startTime"
+        label="Start Time"
+        formControlName="startTime"
+        type="datetime-local"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        [parentForm]="form"
+        fieldName="endTime"
+        label="End Time"
+        formControlName="endTime"
+        type="datetime-local"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        class="text-input"
+        type="number"
+        [parentForm]="form"
+        fieldName="target"
+        label="Target"
+        formControlName="target"
+      ></app-form-text-input>
+
+      <app-form-switch-input
+        fieldName="paperTrade"
+        label="Paper Trade"
+        formControlName="paperTrade"
+        [parentForm]="form"
+      ></app-form-switch-input>
+
+      <app-form-switch-input
+        fieldName="logsEnabled"
+        label="Logs"
+        formControlName="logsEnabled"
+        [parentForm]="form"
+      ></app-form-switch-input>
+    </div>
+    <!-- Section 2 -->
+    <h3>Adjustment</h3>
+    <div class="form-grid">
+      <app-form-select-input
+        type="text"
+        [parentForm]="form"
+        fieldName="adjustmentType"
+        label="Adjustment Type"
+        formControlName="adjustmentType"
+        [items]="straddleAdjustmentType"
+      ></app-form-select-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="adjustmentPercentage"
+        label="Adjustment %"
+        formControlName="adjustmentPercentage"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="callStopLossStrikePrice"
+        label="Call SL StrikePrice"
+        formControlName="callStopLossStrikePrice"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="putStopLossStrikePrice"
+        label="Put SL StrikePrice"
+        formControlName="putStopLossStrikePrice"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="callStopLossPercentage"
+        label="Call SL %"
+        formControlName="callStopLossPercentage"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="putStopLossPercentage"
+        label="Put SL %"
+        formControlName="putStopLossPercentage"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="callStopLossPremium"
+        label="Call SL Premium"
+        formControlName="callStopLossPremium"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="putStopLossPremium"
+        label="Put SL Premium"
+        formControlName="putStopLossPremium"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="bufferStopLossForStrikePrice"
+        label="Buffer SL For Strike Price"
+        formControlName="bufferStopLossForStrikePrice"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="maxDiffAdjustmentPercentage"
+        label="Max Diff Adj %"
+        formControlName="maxDiffAdjustmentPercentage"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="number"
+        [parentForm]="form"
+        fieldName="targetPercentage"
+        label="Target %"
+        formControlName="targetPercentage"
+      ></app-form-text-input>
+
+      <app-form-text-input
+        type="text"
+        [parentForm]="form"
+        fieldName="dailyStartTime"
+        label="Daily Start Time"
+        formControlName="dailyStartTime"
+      ></app-form-text-input>
+    </div>
+
+    <!-- Section 3 -->
+    <h3>Targets & Controls</h3>
+    <div class="form-grid"></div>
+
+    <!-- Section 4 -->
+    <h3>Meta Information</h3>
+    <div class="form-grid"></div>
+
+    <div class="form-actions">
+      <button mat-button color="warn" type="button" (click)="goBack()">
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</mat-card>

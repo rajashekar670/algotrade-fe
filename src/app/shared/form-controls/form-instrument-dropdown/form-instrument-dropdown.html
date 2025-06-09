@@ -1,0 +1,9 @@
+<mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>Instrument</mat-label>
+  <mat-select [formControl]="formField">
+    <mat-option *ngFor="let option of instrumentOptions" [value]="option.value">
+      {{ option.label }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="isInvalid()">Instrument is required</mat-error>
+</mat-form-field>

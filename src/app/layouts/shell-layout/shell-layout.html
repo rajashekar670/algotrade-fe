@@ -1,0 +1,17 @@
+
+<mat-sidenav-container class="layout-container">
+   @if (!(isHandset$ | async)) {
+    <mat-sidenav #drawer class="sidebar" mode="side" opened>
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+   }
+  <mat-sidenav-content class="content">
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+@if((isHandset$ | async) ) {
+<app-bottom-nav></app-bottom-nav>
+}
+

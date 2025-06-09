@@ -1,0 +1,71 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+
+  .sidebar-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  a.mat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-weight: 500;
+  color: #424242;
+  gap: 12px; // <-- Ensures space between icon and text
+  text-decoration: none;
+
+  mat-icon {
+    font-size: 20px;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  &.active,
+  &:hover {
+    background-color: #e8eaf6;
+    color: #3f51b5;
+  }
+}
+
+  .parent-item {
+    cursor: pointer;
+
+    .spacer {
+      flex: 1;
+    }
+
+    .expand-icon {
+      font-size: 18px;
+    }
+  }
+
+  .sub-item {
+  padding-left: 56px; // deeper indent
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.main-nav {
+  flex-grow: 1; /* Take all remaining space */
+  overflow-y: auto; /* Scroll if content is long */
+}
+
+}

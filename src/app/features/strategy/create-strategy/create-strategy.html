@@ -1,0 +1,15 @@
+<div class="strategy-container">
+  <h3 class="mat-headline-6 mb-3">Choose Strategy</h3>
+
+  <div class="strategy-list">
+    @for (strategy of strategies; track $index) {
+      <mat-card class="strategy-card" (click)="navigateToStrategy(strategy)">
+        <div class="card-content">
+          <mat-icon class="strategy-icon">trending_up</mat-icon>
+          <span class="strategy-name">{{ strategy }}</span>
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </div>
+      </mat-card>
+    }
+  </div>
+</div>

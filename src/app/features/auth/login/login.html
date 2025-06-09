@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
+  <h2>Login</h2>
+  <app-form-text-input
+    type="text"
+    [parentForm]="form"
+    fieldName="email"
+    label="Email"
+    formControlName="email"
+    [backendError]="error?.email"
+  ></app-form-text-input>
+  <app-form-text-input
+    type="password"
+    [parentForm]="form"
+    fieldName="password"
+    label="Password"
+    formControlName="password"
+  ></app-form-text-input>
+
+  @if (error?.error) {
+  <mat-error class="switch-link">{{ error?.error }}</mat-error>
+  }
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Login
+  </button>
+
+  <p class="switch-link">
+    Don't have an account?
+    <a routerLink="/register">Register</a>
+  </p>
+</form>

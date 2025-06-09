@@ -1,0 +1,14 @@
+<mat-form-field  appearance="outline" style="width: 100%;">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [(value)]="value"
+    [disabled]="isDisabled"
+    [id]="fieldName"
+    (valueChange)="onChange($event)"
+  >
+    @for (item of items; track item) {
+    <mat-option [value]="item.value">{{ item.label }}</mat-option>
+    }
+  </mat-select>
+  <app-form-error [control]="formField" [backendError]="backendError"></app-form-error>
+</mat-form-field>

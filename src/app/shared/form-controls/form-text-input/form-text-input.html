@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    placeholder="{{ placeholder }}"
+    [type]="type"
+    [value]="value"
+    (change)="onChange($event)"
+    [disabled]="isDisabled"
+    [id]="fieldName"
+  />
+  <app-form-error [control]="formField" [backendError]="backendError"> </app-form-error>
+</mat-form-field>
+
+

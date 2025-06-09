@@ -1,0 +1,21 @@
+.layout-container {
+  height: 100vh;
+}
+
+.content {
+  padding: 16px;
+  overflow-y: auto;
+  padding-bottom: 56px;
+}
+
+.sidebar {
+  width: 250px;
+}
+
+app-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
