@@ -1,0 +1,130 @@
+.filter-form {
+  display: flex;
+}
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .filter-item {
+    flex: 1 1 250px;
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.modern-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+
+  th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+  }
+
+  tr.mat-row:hover {
+    background-color: #fafafa;
+  }
+
+  td, th {
+    padding: 12px 16px;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+}
+
+.mobile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .strategy-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+}
+
+td.mat-cell {
+  vertical-align: middle;
+
+  button {
+    margin: 0 4px;
+  }
+}
+
+.strategy-card {
+  margin: 16px;
+  border-radius: 14px;
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 8px;
+
+    .strategy-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strategy-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .instrument-name {
+      font-size: 13px;
+      color: #666;
+    }
+  }
+
+  .meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .pl-section {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    gap: 8px;
+    font-weight: bold;
+
+    &.profit mat-icon {
+      color: green;
+    }
+
+    &.loss mat-icon {
+      color: red;
+    }
+
+    mat-chip {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    gap: 8px;
+  }
+}

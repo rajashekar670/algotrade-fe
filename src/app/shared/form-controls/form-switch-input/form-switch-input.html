@@ -1,9 +1,8 @@
-
-  <mat-slide-toggle
-    labelPosition="before"
-    [disabled]="isDisabled"
-    (change)="onChange($event)"
-    [checked]="value"
-    [id]="fieldName"
-    >{{ label }}</mat-slide-toggle
-  >
+<mat-slide-toggle
+  [formControl]="control"
+  [disabled]="isDisabled"
+  labelPosition="after"
+  [id]="label"
+>
+  {{ label }}
+</mat-slide-toggle>

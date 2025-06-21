@@ -11,6 +11,8 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { jwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([jwtInterceptor, httpErrorInterceptor])),
   ],
 };

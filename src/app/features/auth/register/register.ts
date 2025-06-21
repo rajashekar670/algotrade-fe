@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { FormTextInput } from '../../../shared/form-controls/form-text-input/form-text-input';
 import { RegisterError } from '../../../core/models/auth.model';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +30,7 @@ export class Register {
   form: FormGroup;
   error?: RegisterError;
 
-  constructor(private fb: FormBuilder, private auth: Auth, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private cdr: ChangeDetectorRef) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25)]],

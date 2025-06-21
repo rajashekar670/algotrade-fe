@@ -28,12 +28,14 @@ export class FormError {
 
     const errors = this.control.errors;
 
-    if (errors['required']) return 'Required.';
-    if (errors['email']) return 'Invalid email format.';
+    if (errors['required']) return 'Required';
+    if (errors['email']) return 'Invalid format';
     if (errors['minlength'])
-      return `Minimum length is ${errors['minlength'].requiredLength}.`;
+      return `Min length is ${errors['minlength'].requiredLength}`;
     if (errors['maxlength'])
-      return `Maximum length is ${errors['maxlength'].requiredLength}.`;
+      return `Max length is ${errors['maxlength'].requiredLength}`;
+    if (errors['min'])
+      return `Min value is ${errors['min'].min}`;
     return '';
   }
 }

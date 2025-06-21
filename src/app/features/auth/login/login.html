@@ -1,32 +1,29 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
   <h2>Login</h2>
-  <app-form-text-input
+  <app-form-field
     type="text"
     [parentForm]="form"
     fieldName="email"
     label="Email"
-    formControlName="email"
-    [backendError]="error?.email"
-  ></app-form-text-input>
-  <app-form-text-input
+  ></app-form-field>
+  <app-form-field
     type="password"
     [parentForm]="form"
     fieldName="password"
     label="Password"
-    formControlName="password"
-  ></app-form-text-input>
-
-  @if (error?.error) {
-  <mat-error class="switch-link">{{ error?.error }}</mat-error>
-  }
+  ></app-form-field>
 
   <button
     mat-raised-button
     color="primary"
     type="submit"
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || loading"
   >
-    Login
+    @if(loading) {
+    <mat-spinner diameter="20" strokeWidth="3" color="accent"></mat-spinner>
+    } @else {
+      Login
+    }
   </button>
 
   <p class="switch-link">

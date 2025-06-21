@@ -1,0 +1,59 @@
+<mat-form-field appearance="fill" style="width: 100%">
+  <mat-label>{{ label }}</mat-label>
+
+  @switch (type) { @case ('text') {
+  <input
+    matInput
+    [formControl]="control"
+    [type]="type"
+    [placeholder]="placeholder"
+  />
+  } @case ('password') {
+  <input
+    matInput
+    [formControl]="control"
+    [type]="type"
+    [placeholder]="placeholder"
+  />
+  }@case ('number') {
+
+  <input
+    matInput
+    [formControl]="control"
+    [type]="type"
+    [placeholder]="placeholder"
+  />
+  } @case ('select') {
+  <mat-select [formControl]="control" (selectionChange)="onSelectChange($event)">
+    @for (option of options; track $index) {
+    <mat-option [value]="option.value"> {{ option.label }} </mat-option>
+    }
+  </mat-select>
+  } @case ('datetime-local') {
+  <input
+    matInput
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [type]="type"
+  />
+  } } @if (control.errors?.['required']) {
+  <mat-error>Required</mat-error>
+  } @else if (control.errors?.['min']) {
+  <mat-error>Min value is {{control.errors?.['min'].min}}</mat-error>
+  } @else if (control.errors?.['max']) {
+  <mat-error>Max value is {{control.errors?.['max'].max}}</mat-error>
+  } @else if (control.errors?.['minlength']) {
+  <mat-error
+    >Min length is {{control.errors?.['minlength'].requiredLength}}</mat-error
+  >
+  } @else if (control.errors?.['maxlength']) {
+  <mat-error
+    >Min length is {{control.errors?.['maxlength'].requiredLength}}</mat-error
+  >
+  } @else if (control.errors?.['email']) {
+  <mat-error>Invalid format</mat-error>
+  } @else if(control.errors?.['backend']) {
+    <mat-error>{{control.errors?.['backend']}}</mat-error>
+  }
+
+</mat-form-field>

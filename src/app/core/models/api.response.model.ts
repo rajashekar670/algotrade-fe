@@ -1,9 +1,9 @@
-export interface ExpiryDate {
+export interface ExpiryDateResponseModel {
   expiryDate?: string;
   weekly?: boolean;
 }
 
-export class Instrument {
+export interface InstrumentResponseModel {
   name?: string;
-  expiryDates?: ExpiryDate[];
+  expiryDates?: ExpiryDateResponseModel[];
 }

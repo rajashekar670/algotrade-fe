@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DropdownOption } from '../../../core/models/dropdown.model';
+import { DropdownOption } from '../../../core/models/drop-down-option.model';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { Instrument as InstrumentService } from '../../../core/services/instrument';
+import { InstrumentService as InstrumentService } from '../../../core/services/instrument.service';
 
 @Component({
   selector: 'app-form-expirydate-dropdown',

@@ -21,17 +21,17 @@
 
     @if (showStrategySubmenu) {
     <ng-container>
-      <a mat-list-item routerLink="/strategies/short-straddle" routerLinkActive="active" class="sub-item">
+      <a mat-list-item routerLink="/create-strategy/short-straddle" routerLinkActive="active" class="sub-item">
         <span>Short Straddle</span>
       </a>
-      <a mat-list-item routerLink="/strategies/short-strangle" routerLinkActive="active" class="sub-item">
+      <a mat-list-item routerLink="/create-strategy/short-strangle" routerLinkActive="active" class="sub-item">
         <span>Short Strangle</span>
       </a>
     </ng-container>
     }
 
     <!-- Strategies -->
-    <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+    <a mat-list-item routerLink="/strategies" routerLinkActive="active">
       <span class="menu-item">
         <mat-icon>view_list</mat-icon>
         <span class="label">Strategies</span>

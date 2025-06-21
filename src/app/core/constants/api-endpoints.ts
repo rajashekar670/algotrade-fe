@@ -1,4 +1,5 @@
 import { environment } from './../../../environments/environment';
+import { StrategyTypeEnum } from './enums';
 
 export const API_ENDPOINTS = {
   AUTH: {
@@ -8,7 +9,7 @@ export const API_ENDPOINTS = {
   STRATEGY: {
     GET_ALL: `${environment.apiUrl}/strategies`,
     GET_BY_ID: (id: string | number) => `${environment.apiUrl}/strategies/${id}`,
-    CREATE: `${environment.apiUrl}/strategies`,
+    CREATE : (name:StrategyTypeEnum) => `${environment.apiUrl}/strategies/strategy/${name}`,
     UPDATE: (id: string | number) => `${environment.apiUrl}/strategies/${id}`,
     DELETE: (id: string | number) => `${environment.apiUrl}/strategies/${id}`
   },

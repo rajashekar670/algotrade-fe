@@ -1,0 +1,198 @@
+<!-- FILTER BAR -->
+<div class="filter-bar" [formGroup]="filterForm">
+  <mat-form-field appearance="outline" class="filter-item">
+    <mat-label>Search</mat-label>
+    <input matInput formControlName="search" (keyup)="onFilterChange()" />
+    <button
+      mat-icon-button
+      *ngIf="filterForm.value.search"
+      matSuffix
+      (click)="filterForm.get('search')?.setValue(''); onFilterChange()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <app-form-field
+    class="filter-item"
+    type="select"
+    [parentForm]="filterForm"
+    fieldName="status"
+    label="Status"
+    [options]="statusList"
+    (valueChanged)="onFilterChange()"
+  >
+  </app-form-field>
+</div>
+
+<!-- DESKTOP TABLE -->
+<ng-container *ngIf="!isMobile; else mobileView">
+  <div class="table-wrapper">
+    <table
+      mat-table
+      [dataSource]="strategies"
+      class="mat-elevation-z2 modern-table"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let strategy">{{ strategy.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="strategy">
+        <th mat-header-cell *matHeaderCellDef>Strategy</th>
+        <td mat-cell *matCellDef="let strategy">{{ strategy.strategy }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="instrument">
+        <th mat-header-cell *matHeaderCellDef>Instrument</th>
+        <td mat-cell *matCellDef="let strategy">
+          {{ strategy.instrument?.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="target">
+        <th mat-header-cell *matHeaderCellDef>Target Profit</th>
+        <td mat-cell *matCellDef="let strategy">{{ strategy.target }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pl">
+        <th mat-header-cell *matHeaderCellDef>PL</th>
+        <td mat-cell *matCellDef="let strategy">
+          <mat-chip
+            [color]="strategy.pl > 0 ? 'primary' : 'warn'"
+            selected
+            [disableRipple]="true"
+            style="font-weight: 600"
+          >
+            {{ strategy.pl }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let strategy">{{ strategy.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let strategy">
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Start"
+            (click)="onStart(strategy)"
+            *ngIf="strategy.status !== 'ACTIVE'"
+          >
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="accent"
+            aria-label="Stop"
+            (click)="onStop(strategy)"
+            *ngIf="strategy.status === 'ACTIVE'"
+          >
+            <mat-icon>pause</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Delete"
+            (click)="onDelete(strategy)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</ng-container>
+
+<!-- MOBILE CARD VIEW -->
+<ng-template #mobileView>
+  <div class="mobile-cards">
+    <mat-card
+      *ngFor="let strategy of strategies"
+      class="strategy-card mat-elevation-z3"
+    >
+      <!-- Header -->
+      <div class="header-row">
+        <mat-icon color="primary">show_chart</mat-icon>
+        <div class="strategy-info">
+          <div class="strategy-title">{{ strategy.strategy }}</div>
+          <div class="instrument-name">{{ strategy.instrument?.name }}</div>
+        </div>
+      </div>
+
+      <!-- Meta Info -->
+      <div class="meta-info">
+        <div class="info-item">
+          <mat-icon color="accent">fingerprint</mat-icon>
+          <span>{{ strategy.id }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon color="primary">flag</mat-icon>
+          <span>{{ strategy.status }}</span>
+        </div>
+        <div class="info-item">
+          <mat-icon color="primary">track_changes</mat-icon>
+          <span>{{ strategy.target }}</span>
+        </div>
+      </div>
+
+      <!-- Real-time PL Section -->
+      <div
+        class="pl-section"
+        [ngClass]="{ profit: strategy.pl > 0, loss: strategy.pl <= 0 }"
+      >
+        <mat-icon>
+          {{
+            strategy.pl > 0
+              ? "trending_up"
+              : strategy.pl < 0
+              ? "trending_down"
+              : "trending_flat"
+          }}
+        </mat-icon>
+        <mat-chip [color]="strategy.pl > 0 ? 'primary' : 'warn'" selected>
+          {{ strategy.pl }}
+        </mat-chip>
+      </div>
+
+      <!-- Action Buttons -->
+      <mat-card-actions align="end" class="action-buttons">
+        <button
+          mat-mini-button
+          color="primary"
+          *ngIf="strategy.status !== 'ACTIVE'"
+          (click)="onStart(strategy)"
+        >
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button
+          mat-mini-button
+          color="accent"
+          *ngIf="strategy.status === 'ACTIVE'"
+          (click)="onStop(strategy)"
+        >
+          <mat-icon>pause</mat-icon>
+        </button>
+        <button mat-mini-button color="warn" (click)="onDelete(strategy)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-template>
+
+<!-- PAGINATION -->
+<mat-paginator
+  [length]="totalItems"
+  [pageSize]="10"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>

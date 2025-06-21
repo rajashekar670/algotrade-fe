@@ -9,7 +9,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormError } from "../form-error/form-error";
-import { DropdownOption } from '../../../core/models/dropdown.model';
+import { DropdownOption } from '../../../core/models/drop-down-option.model';
 
 @Component({
   selector: 'app-form-select-input',

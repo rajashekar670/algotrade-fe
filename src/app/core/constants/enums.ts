@@ -17,3 +17,14 @@ export enum StraddleAdjustmentType {
   Stoploss = 'STOPLOSS',
   Straddle = 'STRADDLE',
 }
+
+export enum StrategyTypeEnum {
+  ShortStrangle = 'short-strangle',
+  ShortStraddle = 'short-straddle'
+}
+
+export enum OptionTypeEnum {
+  Buy = 'BUY',
+  Sell = 'SELL',
+  NA = "NA"
+}
