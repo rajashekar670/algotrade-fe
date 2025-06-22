@@ -1,14 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormFieldConfig,
   FormSchema,
 } from '../../../core/models/form-schema.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DynamicFormService } from '../../services/dynamic-form.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCard } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-dynamic-form.component',
-  imports: [],
+  selector: 'app-dynamic-form',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatCard,
+    MatButtonModule
+  ],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss',
 })
@@ -16,6 +37,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() schema!: FormSchema;
   @Input() mode: 'create' | 'edit' | 'view' = 'view';
   @Input() formData: any = {};
+  @Output() submitted = new EventEmitter<any>();
 
   form!: FormGroup;
   backendErrors: { [key: string]: string } = {};
@@ -114,7 +136,47 @@ export class DynamicFormComponent implements OnInit {
     if (field.editable === false) return true;
     return false;
   }
+
+  isVisible(field: FormFieldConfig): boolean {
+    if (field.visible === false) return false;
+    return true;
+  }
+
+  onSubmit() {
+    if (this.form.valid && this.mode !== 'view') {
+      this.submitted.emit(this.form.getRawValue);
+    }
+  }
+
   defaultValue(field: FormFieldConfig): any {
-    throw new Error('Method not implemented.');
+    if (field.type === 'boolean') return false;
+    return '';
+  }
+
+  getValidationError(field: FormFieldConfig): string {
+    let errorMessage = '';
+    if (this.form.get(field.key)?.errors?.['min']) {
+      errorMessage = `Min value is ${
+        this.form.get(field.key)?.errors?.['min'].min
+      }`;
+    } else if (this.form.get(field.key)?.errors?.['max']) {
+      errorMessage = `Max value is ${
+        this.form.get(field.key)?.errors?.['max'].max
+      }`;
+    } else if (this.form.get(field.key)?.errors?.['minlength']) {
+      errorMessage = `Min length is ${
+        this.form.get(field.key)?.errors?.['minlength'].requiredLength
+      }`;
+    } else if (this.form.get(field.key)?.errors?.['maxlength']) {
+      errorMessage = `Max length is ${
+        this.form.get(field.key)?.errors?.['maxlength'].requiredLength
+      }`;
+    } else if (this.form.get(field.key)?.errors?.['email']) {
+      errorMessage = 'Invalid format';
+    } else if (this.form.get(field.key)?.errors?.['backend']) {
+      // Implement backend error
+      errorMessage = '';
+    }
+    return errorMessage;
   }
 }

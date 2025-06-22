@@ -1,0 +1,10 @@
+<mat-toolbar color="primary" class="sticky-toolbar">
+  <button mat-icon-button class="back-button" color="warn" type="button" (click)="navigate()">
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  <span class="toolbar-title">Short Straddle</span>
+</mat-toolbar>
+
+<app-dynamic-form mode="create" [schema]="shortStraddleSchema">
+
+</app-dynamic-form>

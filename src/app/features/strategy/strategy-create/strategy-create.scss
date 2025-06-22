@@ -1,0 +1,18 @@
+.sticky-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 0;
+  height: 56px;
+}
+
+.back-button {
+  margin-right: 8px;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: 500;
+}

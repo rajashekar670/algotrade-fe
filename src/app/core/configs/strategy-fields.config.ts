@@ -10,6 +10,7 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     label: 'Id',
     type: 'text',
     required: true,
+    visible: true
   },
   {
     key: 'instrument',
