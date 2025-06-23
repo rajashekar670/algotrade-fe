@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-domain.com/api' // your live backend
+  apiUrl: typeof window === 'undefined' ? 'http://localhost:9000/api' : '/api' // your live backend
 };
