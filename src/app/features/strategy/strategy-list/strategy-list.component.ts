@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   BreakpointObserver,
   Breakpoints,
@@ -21,7 +22,11 @@ import { DropdownOption } from '../../../core/models/drop-down-option.model';
 import { STRATEGY_STATUS_OPTIONS } from '../../../core/constants/dropdowns';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { API_ENDPOINTS } from '../../../core/constants/api-endpoints';
+import { ROUTES } from '../../../core/constants/app.';
+import { error } from 'node:console';
+import { SnackbarService } from '../../../shared/services/snackbar.service';
+import { StrategyTypeService } from '../../../core/services/strategy-type.service';
 
 @Component({
   selector: 'app-strategy-list.component',
@@ -39,39 +44,86 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     FormField,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './strategy-list.component.html',
   styleUrl: './strategy-list.component.scss',
 })
 export class StrategyListComponent implements OnInit {
-  onStart(arg0: any) {
-    throw new Error('Method not implemented.');
+  onStart(id: string) {
+    this.strategyService.startStrategy(id).subscribe({
+        next: () => {
+          this.snackbarService.success('Strategy started successfully - '+id);
+          this.loadStrategies();
+        },
+        error: (error) => {
+          console.log(error);
+          this.snackbarService.success(JSON.stringify(error.error.errors.error));
+          this.loadStrategies();
+        },
+      });
   }
-  onStop(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  onStop(id: string) {
+    this.strategyService.stopStrategy(id).subscribe({
+        next: () => {
+          this.snackbarService.success('Strategy stopped successfully - '+id);
+          this.loadStrategies();
+        },
+        error: (error) => {
+          console.log(error);
+          this.snackbarService.success(JSON.stringify(error.error.errors.error));
+          this.loadStrategies();
+        },
+      })
   }
   onEdit(arg0: any) {
     throw new Error('Method not implemented.');
   }
-  onDelete(arg0: any) {
-    throw new Error('Method not implemented.');
+  onDelete(id: string) {
+    this.strategyService.deleteStrategy(id).subscribe({
+        next: () => {
+          this.snackbarService.success('Strategy deleted successfully - '+id);
+          this.loadStrategies();
+        },
+        error: (error) => {
+          console.log(error);
+          this.snackbarService.success(JSON.stringify(error.error.errors.error));
+          this.loadStrategies();
+        },
+      });
   }
+
+  navigateToDetails(id: string) {
+    console.log(ROUTES.STRATEGIES.GET_BY_ID(id));
+    this.router.navigateByUrl(ROUTES.STRATEGIES.GET_BY_ID(id));
+  }
+
   strategies: any[] = [];
   totalItems = 0;
   isMobile = false;
   filterForm: FormGroup;
   statusList: DropdownOption[] = STRATEGY_STATUS_OPTIONS;
-  displayedColumns :string[] = [
-    'id','strategy','instrument','target','pl','status','actions'
-  ]
+  displayedColumns: string[] = [
+    'id',
+    'strategy',
+    'instrument',
+    'target',
+    'pl',
+    'status',
+    'actions',
+  ];
 
   constructor(
     private fb: FormBuilder,
     private strategyService: StrategyService,
     private errorHandler: FormErrorHandlerService,
     private breakpointObserver: BreakpointObserver,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router,
+    private snackbarService : SnackbarService,
+    private cdr: ChangeDetectorRef,
+    public strategyTypeService : StrategyTypeService
   ) {
     this.filterForm = this.fb.group({
       search: [''],
@@ -97,8 +149,8 @@ export class StrategyListComponent implements OnInit {
           this.cdRef.markForCheck();
         },
         error: (err) => {
-          this.errorHandler.handleBackendErrors(err, this.filterForm)
-        }
+          this.errorHandler.handleBackendErrors(err, this.filterForm);
+        },
       });
   }
 

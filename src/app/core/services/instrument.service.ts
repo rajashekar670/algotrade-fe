@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, of, shareReplay, throwError } from 'rxjs';
 import { API_ENDPOINTS } from '../constants/api-endpoints';
-import { InstrumentResponseModel as InstrumentResponseModel } from '../models/api.response.model';
+import { InstrumentModel as InstrumentModel } from '../models/api.response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ import { InstrumentResponseModel as InstrumentResponseModel } from '../models/ap
 export class InstrumentService {
   constructor(private http: HttpClient) {}
 
-  private instruments$!: Observable<InstrumentResponseModel[]>;
+  private instruments$!: Observable<InstrumentModel[]>;
 
-  getInstruments(): Observable<InstrumentResponseModel[]> {
+  getInstruments(): Observable<InstrumentModel[]> {
     if (!this.instruments$) {
       this.instruments$ = this.http
-        .get<InstrumentResponseModel[]>(API_ENDPOINTS.INSTRUMENT.GET_ALL)
+        .get<InstrumentModel[]>(API_ENDPOINTS.INSTRUMENT.GET_ALL)
         .pipe(
           catchError((error) => {
             console.error('Failed to load instruments', error);
@@ -25,5 +25,9 @@ export class InstrumentService {
         );
     }
     return this.instruments$;
+  }
+
+  getAll(): Observable<InstrumentModel[]> {
+    return this.http.get<InstrumentModel[]>(API_ENDPOINTS.INSTRUMENT.GET_ALL);
   }
 }

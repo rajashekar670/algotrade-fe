@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { InstrumentService as InstrumentService } from '../../../core/services/instrument.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InstrumentResponseModel } from '../../../core/models/api.response.model';
+import { InstrumentModel } from '../../../core/models/api.response.model';
 import { DropdownOption } from '../../../core/models/drop-down-option.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,7 +17,7 @@ export class FormInstrumentDropdown implements OnInit {
   @Input({ required: true }) parentForm!: FormGroup;
   @Input({ required: true }) fieldName!: string;
 
-  instruments: InstrumentResponseModel[] = [];
+  instruments: InstrumentModel[] = [];
   instrumentOptions: DropdownOption[] = [];
 
   constructor(private instrumentService: InstrumentService) {}

@@ -5,13 +5,12 @@ import { StrategyFormCommonFields } from './strategy-fields.config';
 
 const BasicFields: FormFieldConfig[] = StrategyFormCommonFields.map((f) => {
   if (f.key === 'segment') {
-    return { ...f, defaultValue: 'OPTIONS', editable: false, visible: false };
+    return { ...f, defaultValue: 'OPTIONS', editable: false, visible: []};
   } else if (f.key === 'optionType') {
     return {
       ...f,
       defaultValue: OptionTypeEnum.Sell,
-      editable: false,
-      visible: false,
+      editable: false
     };
   }
   return f;

@@ -29,6 +29,7 @@ import { ShortStraddleErrorModel } from '../../../../core/models/shortstraddle.e
 import { StrategyTypeEnum } from '../../../../core/constants/enums';
 import { FormErrorHandlerService } from '../../../../core/services/form-error-handler.service';
 import { SnackbarService } from '../../../../shared/services/snackbar.service';
+import { ROUTES } from '../../../../core/constants/app.';
 
 @Component({
   selector: 'app-short-straddle',
@@ -120,6 +121,7 @@ export class ShortStraddle {
   }
 
   goBack() {
-    this.router.navigate(['/create-strategy']);
+    console.log('navigate')
+    // this.router.navigateByUrl('/login')
   }
 }

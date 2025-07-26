@@ -1,1 +1,95 @@
-<p>dynamic-form.component works!</p>
+<mat-card class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-section">
+    @for (section of schema.sections; track $index) {
+    <h3>{{ section.title }}</h3>
+    <div class="form-grid">
+      @for (field of section.fields; track $index) {
+
+      <!-- Text -->
+      @if(field.type === 'text' && isVisible(field)) {
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> {{ field.label }} </mat-label>
+        <input
+          matInput
+          [formControlName]="field.key"
+          [readOnly]="isReadOnly(field)"
+          [type]="field.type"
+        />
+        @if (this.form.get(field.key)?.errors) {
+        <mat-error>{{ getValidationError(field) }} </mat-error>
+        }</mat-form-field
+      >
+      }
+      <!-- Number -->
+      @else if(field.type === 'number' && isVisible(field)) {
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> {{ field.label }} </mat-label>
+        <input
+          matInput
+          [formControlName]="field.key"
+          [readOnly]="isReadOnly(field)"
+          [type]="field.type"
+        />@if (this.form.get(field.key)?.errors) {
+        <mat-error>{{ getValidationError(field) }} </mat-error>
+        }
+      </mat-form-field>
+      }
+      <!-- Select -->
+      @else if(field.type === 'select' && isVisible(field)) {
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> {{ field.label }} </mat-label>
+        <mat-select
+          [formControlName]="field.key"
+          [disabled]="isReadOnly(field)"
+        >
+          @for (option of getOptions(field); track $index) {
+          <mat-option [value]="option.value"> {{ option.label }} </mat-option>
+          }
+        </mat-select>
+        @if (this.form.get(field.key)?.errors) {
+        <mat-error>{{ getValidationError(field) }} </mat-error>
+        }
+      </mat-form-field>
+      }
+      <!-- Date Time -->
+      @else if(field.type === 'datetime-local' && isVisible(field)) {
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label> {{ field.label }} </mat-label>
+        <input
+          matInput
+          [formControlName]="field.key"
+          [readOnly]="isReadOnly(field)"
+          [type]="field.type"
+        />
+        @if (this.form.get(field.key)?.errors) {
+        <mat-error>{{ getValidationError(field) }} </mat-error>
+        }
+      </mat-form-field>
+      }
+
+      <!-- Boolean -->
+      @if(field.type === 'boolean' && isVisible(field)) {
+      <mat-slide-toggle
+        [formControlName]="field.key"
+        [disabled]="isReadOnly(field)"
+        labelPosition="after"
+        [id]="field.label"
+      >
+        {{ field.label }}
+      </mat-slide-toggle>
+      } }
+    </div>
+    } @if (mode !== 'view') {
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+
+      >
+        Submit
+      </button>
+    </div>
+    }
+  </form>
+</mat-card>

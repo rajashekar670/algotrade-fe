@@ -3,10 +3,10 @@
 
   <div class="strategy-list">
     @for (strategy of strategies; track $index) {
-      <mat-card class="strategy-card" (click)="navigateToStrategy(strategy)">
+      <mat-card class="strategy-card" (click)="navigateToStrategy(strategy.route)">
         <div class="card-content">
           <mat-icon class="strategy-icon">trending_up</mat-icon>
-          <span class="strategy-name">{{ strategy }}</span>
+          <span class="strategy-name">{{ strategy.label }}</span>
           <mat-icon class="arrow-icon">chevron_right</mat-icon>
         </div>
       </mat-card>
