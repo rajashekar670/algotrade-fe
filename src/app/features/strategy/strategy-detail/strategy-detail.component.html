@@ -1,0 +1,198 @@
+<mat-toolbar color="primary" class="sticky-toolbar">
+  <button
+    mat-icon-button
+    class="back-button"
+    color="warn"
+    type="button"
+    (click)="navigateToStrategyList()"
+  >
+    <mat-icon>arrow_back_ios_new</mat-icon>
+  </button>
+
+  <span class="toolbar-title">{{ strategyTypeService.getLabel(strategyData.strategy) }} Details </span>
+</mat-toolbar>
+<div class="strategy-details">
+  @if(schema) {
+  <app-dynamic-form mode="view" [schema]="schema" [formData]="strategyData">
+  </app-dynamic-form>
+  @if(strategyData?.entries?.length >0) {
+  <ng-container *ngIf="!isMobile; else mobileView">
+    <h3>Entries ( {{ strategyData.entries.length }} )</h3>
+    <div class="table-wrapper">
+      <table
+        mat-table
+        [dataSource]="strategyData?.entries"
+        class="mat-elevation-z2 modern-table"
+      >
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="strikePrice">
+          <th mat-header-cell *matHeaderCellDef>Strike Price</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.strikePrice }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="optionType">
+          <th mat-header-cell *matHeaderCellDef>Option Type</th>
+          <td mat-cell *matCellDef="let entry">
+            {{ entry?.optionType }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="side">
+          <th mat-header-cell *matHeaderCellDef>Side</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.side }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Qty</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="entry">
+          <th mat-header-cell *matHeaderCellDef>Entry Price</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.entry }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="exit">
+          <th mat-header-cell *matHeaderCellDef>Exit Price</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.exit }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ltp">
+          <th mat-header-cell *matHeaderCellDef>LTP</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.ltp }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="pl">
+          <th mat-header-cell *matHeaderCellDef>Profit Loss</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.pl }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let entry">{{ entry.status }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <!-- MOBILE CARD VIEW -->
+  <ng-template #mobileView>
+    <h3>Entries ( {{ strategyData.entries.length }} )</h3>
+    <mat-card class="custom-card" *ngFor="let entry of strategyData.entries">
+      <mat-card-header>
+        <mat-card-title>
+          <div>
+            {{ strategyData.instrument }} {{ entry.strikePrice }}
+            {{ entry.optionType }}
+          </div>
+          <div>{{ entry.pl }}</div>
+        </mat-card-title>
+      </mat-card-header>
+      <hr />
+
+      <mat-card-content>
+        <div class="card-content-group">
+          <div class="card-content-label"># Id</div>
+          <div class="card-content-value">
+            {{ entry.id }}
+          </div>
+        </div>
+        <div class="card-content-group">
+          <div class="card-content-label">Quantity</div>
+          <div class="card-content-value">
+            {{ entry.quantity }}
+          </div>
+        </div>
+        <div class="card-content-group">
+          <div class="card-content-label">Buy/Sell</div>
+          <div class="card-content-value">
+            {{ entry.side }}
+          </div>
+        </div>
+        <div class="card-content-group">
+          <div class="card-content-label">Entry Price</div>
+          <div class="card-content-value">
+            {{ entry.entry }}
+          </div>
+        </div>
+        <div class="card-content-group">
+          <div class="card-content-label">Exit Price</div>
+          <div class="card-content-value">
+            {{ entry.exit }}
+          </div>
+        </div>
+
+        <div class="card-content-group">
+          <div class="card-content-label">LTP</div>
+          <div class="card-content-value">
+            {{ entry.ltp }}
+          </div>
+        </div>
+        <div class="card-content-group">
+          <div class="card-content-label">Status</div>
+          <div class="card-content-value">
+            {{ entry.status }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  }
+  <!-- Logs Section -->
+  @if(strategyData.logs.length > 0) {
+  <ng-container *ngIf="!isMobile; else mobileView">
+    <h3>Logs ( {{ strategyData.logs.length }} )</h3>
+    <div class="table-wrapper">
+      <table
+        mat-table
+        [dataSource]="strategyData?.logs"
+        class="mat-elevation-z2 modern-table"
+      >
+        <ng-container matColumnDef="createdTime">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let log">{{ log.createdTime }}</td>
+        </ng-container>
+         <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let log"><span class="{{log.type}}">{{ log.type }}</span></td>
+        </ng-container>
+        <ng-container matColumnDef="message">
+          <th mat-header-cell *matHeaderCellDef>Message</th>
+          <td mat-cell *matCellDef="let log">{{ log.message }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="logsDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: logsDisplayedColumns"></tr>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #mobileView>
+    <h3>Logs ( {{ strategyData.logs.length }} )</h3>
+    <mat-card class="custom-card" *ngFor="let log of strategyData.logs">
+      <mat-card-header>
+        <mat-card-title>
+          <div>
+            {{ log.createdTime }}
+          </div>
+          <div><span class="{{log.type}}">{{ log.type }}</span></div>
+        </mat-card-title>
+      </mat-card-header>
+      <hr />
+
+      <mat-card-content>
+        <div class="card-content-group">
+          <div class="card-content-value">
+            {{ log.message }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+  } }
+</div>

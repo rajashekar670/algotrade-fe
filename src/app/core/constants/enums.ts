@@ -19,8 +19,8 @@ export enum StraddleAdjustmentType {
 }
 
 export enum StrategyTypeEnum {
-  ShortStrangle = 'short-strangle',
-  ShortStraddle = 'short-straddle'
+  ShortStrangle = 'SHORT_STRANGLE',
+  ShortStraddle = 'SHORT_STRADDLE'
 }
 
 export enum OptionTypeEnum {

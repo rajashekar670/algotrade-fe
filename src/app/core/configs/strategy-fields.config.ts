@@ -81,18 +81,21 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     type: 'select',
     required: true,
     options: OPTION_TYPE_OPTIONS,
+    visible: [],
   },
   {
     key: 'startTime',
     label: 'Start Time',
     type: 'datetime-local',
     required: true,
+    defaultValue: [10, 30],
   },
   {
     key: 'endTime',
     label: 'End Time',
     type: 'datetime-local',
     required: true,
+    defaultValue: [14, 0],
   },
   {
     key: 'target',
@@ -100,6 +103,14 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
+  },
+  {
+    key: 'pl',
+    label: 'Profit Loss',
+    type: 'number',
+    required: true,
+    defaultValue: 0,
+    visible: ['view'],
   },
   {
     key: 'logsEnabled',

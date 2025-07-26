@@ -40,13 +40,15 @@
 
       <ng-container matColumnDef="strategy">
         <th mat-header-cell *matHeaderCellDef>Strategy</th>
-        <td mat-cell *matCellDef="let strategy">{{ strategy.strategy }}</td>
+        <td mat-cell *matCellDef="let strategy">
+          {{ strategyTypeService.getLabel(strategy.strategy) }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="instrument">
         <th mat-header-cell *matHeaderCellDef>Instrument</th>
         <td mat-cell *matCellDef="let strategy">
-          {{ strategy.instrument?.name }}
+          {{ strategy.instrument }}
         </td>
       </ng-container>
 
@@ -81,25 +83,35 @@
             mat-icon-button
             color="primary"
             aria-label="Start"
-            (click)="onStart(strategy)"
-            *ngIf="strategy.status !== 'ACTIVE'"
+            (click)="navigateToDetails(strategy.id)"
           >
-            <mat-icon>play_arrow</mat-icon>
+            <mat-icon>visibility</mat-icon>
           </button>
+          @if (strategy.status === 'RUNNING') {
           <button
             mat-icon-button
             color="accent"
             aria-label="Stop"
-            (click)="onStop(strategy)"
-            *ngIf="strategy.status === 'ACTIVE'"
+            (click)="onStop(strategy.id)"
           >
-            <mat-icon>pause</mat-icon>
+            <mat-icon>stop</mat-icon>
           </button>
+          } @else {
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Start"
+            (click)="onStart(strategy.id)"
+          >
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          }
+
           <button
             mat-icon-button
             color="warn"
             aria-label="Delete"
-            (click)="onDelete(strategy)"
+            (click)="onDelete(strategy.id)"
           >
             <mat-icon>delete</mat-icon>
           </button>
@@ -123,8 +135,10 @@
       <div class="header-row">
         <mat-icon color="primary">show_chart</mat-icon>
         <div class="strategy-info">
-          <div class="strategy-title">{{ strategy.strategy }}</div>
-          <div class="instrument-name">{{ strategy.instrument?.name }}</div>
+          <div class="strategy-title">
+            {{ strategyTypeService.getLabel(strategy.strategy) }}
+          </div>
+          <div class="instrument-name">{{ strategy.instrument }}</div>
         </div>
       </div>
 
@@ -166,22 +180,33 @@
       <!-- Action Buttons -->
       <mat-card-actions align="end" class="action-buttons">
         <button
-          mat-mini-button
+          mat-icon-button
           color="primary"
-          *ngIf="strategy.status !== 'ACTIVE'"
-          (click)="onStart(strategy)"
+          (click)="navigateToDetails(strategy.id)"
+        >
+          <mat-icon>visibility</mat-icon>
+        </button>
+        @if (strategy.status === 'RUNNING') {
+        <button
+          mat-icon-button
+          color="accent"
+          aria-label="Stop"
+          (click)="onStop(strategy.id)"
+        >
+          <mat-icon>stop</mat-icon>
+        </button>
+        } @else {
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Start"
+          (click)="onStart(strategy.id)"
         >
           <mat-icon>play_arrow</mat-icon>
         </button>
-        <button
-          mat-mini-button
-          color="accent"
-          *ngIf="strategy.status === 'ACTIVE'"
-          (click)="onStop(strategy)"
-        >
-          <mat-icon>pause</mat-icon>
-        </button>
-        <button mat-mini-button color="warn" (click)="onDelete(strategy)">
+        }
+
+        <button mat-icon-button color="warn" (click)="onDelete(strategy.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>

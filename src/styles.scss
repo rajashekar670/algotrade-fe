@@ -17,3 +17,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #43a047;
   color: white;
 }
+
+// Toolbar start
+.sticky-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 0 !important;
+  height: 56px;
+}
+
+.back-button {
+  margin-right: 8px;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+// Toolbar end

@@ -42,7 +42,7 @@
           [formControlName]="field.key"
           [disabled]="isReadOnly(field)"
         >
-          @for (option of field.options; track $index) {
+          @for (option of getOptions(field); track $index) {
           <mat-option [value]="option.value"> {{ option.label }} </mat-option>
           }
         </mat-select>
@@ -85,7 +85,7 @@
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="form.invalid"
+
       >
         Submit
       </button>

@@ -1,3 +1,4 @@
+import { MODE } from "../constants/app.";
 import { DropdownOption } from "./drop-down-option.model";
 
 export interface FormFieldConfig {
@@ -6,13 +7,13 @@ export interface FormFieldConfig {
   type: 'text' | 'select' | 'number' | 'checkbox' | 'boolean' | 'datetime-local';
   required?: boolean;
   editable?: boolean;
-  visible?: boolean;
+  visible?: MODE[];
   visibleIf?: string;
   options?: DropdownOption[]; // ← inline select options
   optionsEndpoint?: string;
   dependsOn?: string;
   validators?: { type: 'minLength' | 'maxLength' | 'pattern' | 'minValue', value: any }[];
-  defaultValue?: string | boolean | number;
+  defaultValue?: string | boolean | number | any[];
 }
 
 export interface FormSectionConfig {
