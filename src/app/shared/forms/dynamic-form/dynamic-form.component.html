@@ -21,7 +21,7 @@
       >
       }
       <!-- Number -->
-      @else if(field.type === 'number' && isVisible(field)) {
+      @else if(field.type === 'number' && isVisible(field) && evaluateVisibleIf(field)) {
       <mat-form-field appearance="fill" style="width: 100%">
         <mat-label> {{ field.label }} </mat-label>
         <input

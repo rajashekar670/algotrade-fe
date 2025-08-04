@@ -15,20 +15,22 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 25,
+    visibleIf: "adjustmentType == 'STRADDLE'",
+    requiredIf: "adjustmentType == 'STRADDLE'",
   },
   {
     key: 'callStopLossStrikePrice',
     label: 'Call StopLoss StrikePrice',
     type: 'number',
-    required: true,
     defaultValue: 0,
+    visible: ['edit','view']
   },
   {
     key: 'putStopLossStrikePrice',
     label: 'Put StopLoss StrikePrice',
     type: 'number',
-    required: true,
     defaultValue: 0,
+    visible: ['edit','view']
   },
   {
     key: 'callStopLossPercentage',
@@ -36,6 +38,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 35,
+    visibleIf: "adjustmentType == 'STOPLOSS'",
+    requiredIf: "adjustmentType == 'STOPLOSS'",
   },
   {
     key: 'putStopLossPercentage',
@@ -43,6 +47,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 35,
+    visibleIf: "adjustmentType == 'STOPLOSS'",
+    requiredIf: "adjustmentType == 'STOPLOSS'",
   },
   {
     key: 'callStopLossPremium',
@@ -50,6 +56,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
+    visibleIf: "adjustmentType == 'STOPLOSS'",
+    requiredIf: "adjustmentType == 'STOPLOSS'",
   },
   {
     key: 'putStopLossPremium',
@@ -57,6 +65,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
+    visibleIf: "adjustmentType == 'STOPLOSS'",
+    requiredIf: "adjustmentType == 'STOPLOSS'",
   },
   {
     key: 'bufferStopLossForStrikePrice',
@@ -64,6 +74,7 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
+    visible:[]
   },
   {
     key: 'maxDiffAdjustmentPercentage',
@@ -71,6 +82,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 50,
+    visibleIf: "adjustmentType == 'STRADDLE'",
+    requiredIf: "adjustmentType == 'STRADDLE'",
   },
   {
     key: 'targetPercentage',

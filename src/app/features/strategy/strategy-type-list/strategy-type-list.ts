@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
-import { ROUTES } from '../../../core/constants/app.';
+import { ROUTES } from '../../../core/constants/app';
 import { STRATEGY_TYPES } from '../../../core/configs/strategy-type-config';
 
 @Component({

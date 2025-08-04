@@ -23,7 +23,7 @@ import { STRATEGY_STATUS_OPTIONS } from '../../../core/constants/dropdowns';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { API_ENDPOINTS } from '../../../core/constants/api-endpoints';
-import { ROUTES } from '../../../core/constants/app.';
+import { ROUTES } from '../../../core/constants/app';
 import { error } from 'node:console';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
 import { StrategyTypeService } from '../../../core/services/strategy-type.service';
