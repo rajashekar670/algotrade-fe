@@ -1,8 +1,9 @@
+import { ShortStrangleFormSchema } from './../../../core/configs/short-strangle-form-schema.config';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StrategyService } from '../../../core/services/strategy.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ROUTES } from '../../../core/constants/app.';
+import { ROUTES } from '../../../core/constants/app';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DynamicFormComponent } from '../../../shared/forms/dynamic-form/dynamic-form.component';
@@ -75,7 +76,6 @@ export class StrategyDetailComponent implements OnInit {
   }
 
   loadStrategy(id: string): void {
-    console.log('load strategy');
     if (id) {
       this.strategyService.getById(id).subscribe({
         next: (data) => {
@@ -95,6 +95,8 @@ export class StrategyDetailComponent implements OnInit {
 
       if (strategyTypeConfig.type === StrategyTypeEnum.ShortStraddle) {
         this.schema = ShortStraddleFormSchema;
+      } else if(strategyTypeConfig.type === StrategyTypeEnum.ShortStrangle) {
+        this.schema = ShortStrangleFormSchema;
       }
 
     }

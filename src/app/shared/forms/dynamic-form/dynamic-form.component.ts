@@ -19,6 +19,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCard } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { formatToIsoLocal } from '../../../core/utils/date-util';
+import { Parser } from 'expr-eval';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -41,12 +42,13 @@ export class DynamicFormComponent implements OnInit {
   @Input() formData: any = {};
   @Output() submitted = new EventEmitter<any>();
 
+  private static parser = new Parser();
+
   form!: FormGroup;
   optionsMap: { [key: string]: DropdownOption[] } = {};
 
   @Input() set backendErrors(errors: Record<string, string>) {
     if (!errors) return;
-    console.log('backend errors', errors);
     Object.entries(errors).forEach(([fieldKey, message]) => {
       const control = this.form.get(fieldKey);
       if (control) {
@@ -60,6 +62,7 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.addRequiredIfValidation();
     this.loadInstrumentOptions();
     this.loadOptions();
     this.setOptionsForViewMode();
@@ -117,6 +120,7 @@ export class DynamicFormComponent implements OnInit {
     this.form = this.fb.group(group);
 
     this.form.valueChanges.subscribe(() => {
+      this.addRequiredIfValidation();
       this.backendErrors = {};
     });
   }
@@ -221,6 +225,40 @@ export class DynamicFormComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  addRequiredIfValidation(): void {
+    this.schema.sections.forEach((section) => {
+      section.fields
+        .filter((field) => field.requiredIf)
+        .forEach((field) => {
+          const required = this.isRequired(field);
+          const control = this.form.get(field.key);
+          if (control && required) {
+            control.addValidators(Validators.required);
+          }
+        });
+    });
+  }
+
+  isRequired(field: FormFieldConfig): boolean {
+    const formValue = this.form.getRawValue();
+    let required = false;
+    if (field.required) {
+      required = true;
+    } else if (field.requiredIf) {
+      required = Parser.parse(field.requiredIf).evaluate(formValue);
+    }
+    return required;
+  }
+
+  evaluateVisibleIf(field: FormFieldConfig): boolean {
+    const formValue = this.form.getRawValue();
+    let visible = true;
+    if (field.visibleIf) {
+      visible = Parser.parse(field.visibleIf).evaluate(formValue);
+    }
+    return visible;
   }
 
   onSubmit() {

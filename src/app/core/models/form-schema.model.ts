@@ -1,4 +1,4 @@
-import { MODE } from "../constants/app.";
+import { MODE } from "../constants/app";
 import { DropdownOption } from "./drop-down-option.model";
 
 export interface FormFieldConfig {
@@ -6,6 +6,7 @@ export interface FormFieldConfig {
   label: string;
   type: 'text' | 'select' | 'number' | 'checkbox' | 'boolean' | 'datetime-local';
   required?: boolean;
+  requiredIf?: string;
   editable?: boolean;
   visible?: MODE[];
   visibleIf?: string;

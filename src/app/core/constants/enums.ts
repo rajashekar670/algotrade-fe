@@ -28,3 +28,8 @@ export enum OptionTypeEnum {
   Sell = 'SELL',
   NA = "NA"
 }
+
+export enum StrangleEntryType {
+  Premium= 'PREMIUM',
+  StrikePrice= 'STRIKEPRICE'
+}

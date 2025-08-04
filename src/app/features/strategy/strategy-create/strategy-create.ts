@@ -11,8 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { StrategyService } from '../../../core/services/strategy.service';
 import { StrategyTypeEnum } from '../../../core/constants/enums';
 import { SnackbarService } from '../../../shared/services/snackbar.service';
-import { ROUTES } from '../../../core/constants/app.';
+import { ROUTES } from '../../../core/constants/app';
 import { ActivatedRoute } from '@angular/router';
+import { ShortStrangleFormSchema } from '../../../core/configs/short-strangle-form-schema.config';
 
 @Component({
   selector: 'app-strategy-create',
@@ -45,6 +46,8 @@ export class StrategyCreate implements OnInit {
     if (this.strategyTypeConfig) {
       if (this.strategyTypeConfig.type === StrategyTypeEnum.ShortStraddle) {
         this.schema = ShortStraddleFormSchema;
+      } else if(this.strategyTypeConfig.type === StrategyTypeEnum.ShortStrangle) {
+        this.schema = ShortStrangleFormSchema;
       }
     }
   }

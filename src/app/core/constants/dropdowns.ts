@@ -1,5 +1,11 @@
-import { DropdownOption } from "../models/drop-down-option.model";
-import { Expiry, OptionTypeEnum, StraddleAdjustmentType, StrategyStatus } from "./enums";
+import { DropdownOption } from '../models/drop-down-option.model';
+import {
+  Expiry,
+  OptionTypeEnum,
+  StraddleAdjustmentType,
+  StrangleEntryType,
+  StrategyStatus,
+} from './enums';
 
 export const OPTION_TYPE_OPTIONS: DropdownOption<OptionTypeEnum>[] = [
   { value: OptionTypeEnum.Buy, label: 'Buy' },
@@ -21,8 +27,14 @@ export const STRATEGY_EXPIRY_OPTIONS: DropdownOption<Expiry>[] = [
   { value: Expiry.NA, label: 'NA' },
 ];
 
-export const STRADDLE_ADJUSTMENT_OPTIONS: DropdownOption<StraddleAdjustmentType>[] = [
-  { value: StraddleAdjustmentType.Stoploss, label: 'Stoploss' },
-  { value: StraddleAdjustmentType.Straddle, label: 'Straddle' },
-];
+export const STRADDLE_ADJUSTMENT_OPTIONS: DropdownOption<StraddleAdjustmentType>[] =
+  [
+    { value: StraddleAdjustmentType.Stoploss, label: 'Stoploss' },
+    { value: StraddleAdjustmentType.Straddle, label: 'Straddle' },
+  ];
 
+export const STRANGLE_ENTRY_TYPE_OPTIONS: DropdownOption<StrangleEntryType>[] =
+  [
+    { value: StrangleEntryType.Premium, label: 'Premium' },
+    { value: StrangleEntryType.StrikePrice, label: 'Strike Price' },
+  ];
