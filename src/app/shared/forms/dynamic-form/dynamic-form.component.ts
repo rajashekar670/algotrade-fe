@@ -63,10 +63,8 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.addRequiredIfValidation();
-    this.loadInstrumentOptions();
     this.loadOptions();
     this.setOptionsForViewMode();
-    this.handleDependencies();
   }
 
   setOptionsForViewMode(): void {
@@ -92,10 +90,6 @@ export class DynamicFormComponent implements OnInit {
     const group: any = {};
     this.schema.sections.forEach((section) => {
       section.fields.forEach((field) => {
-        // const value1 =
-        //   this.formData[field.key] ??
-        //   field.defaultValue ??
-        //   this.defaultValue(field);
         const value = this.getFieldValue(field);
         const validators = [];
         if (field.required) validators.push(Validators.required);
@@ -172,37 +166,38 @@ export class DynamicFormComponent implements OnInit {
             field.type === 'select' && field.optionsEndpoint && !field.dependsOn
         )
         .forEach((field) => {
-          this.dfs
-            .getOptions(field.optionsEndpoint)
-            .subscribe((opts: any[]) => {
-              this.optionsMap[field.key] = opts;
-            });
+          this.optionsMap[field.key] = this.dfs.getFieldOptions(field);
+          this.getDependentFields(field).forEach((dependant) => {
+            let control = this.form.get(field.key);
+            let depenentControl = this.form.get(dependant.key);
+            if (control && depenentControl) {
+              control.valueChanges.subscribe((val) => {
+                this.optionsMap[dependant.key] =
+                  this.dfs.getDependentFieldOptions(dependant, val);
+                  depenentControl?.setValue('');
+              });
+            }
+          });
         });
     });
   }
 
-  loadInstrumentOptions() {
-    if (this.findField('instrument') && this.mode === 'create') {
-      this.dfs.loadInstrumentOptions().subscribe((options) => {
-        this.optionsMap['instrument'] = options;
-        const selected = this.form.get('instrument')?.value;
-        if (selected) {
-          this.optionsMap['expiryDate'] =
-            this.dfs.getExpiriesForInstrument(selected);
+  getDependentFields(field: FormFieldConfig): FormFieldConfig[] {
+    const dependents: FormFieldConfig[] = [];
+
+    this.schema.sections.forEach((section) => {
+      section.fields.forEach((f) => {
+        if (
+          f.type === 'select' &&
+          f.optionsEndpoint &&
+          f.dependsOn === field.key
+        ) {
+          dependents.push(f);
         }
       });
-    }
-  }
+    });
 
-  handleDependencies() {
-    const expiryField = this.findField('expiryDate');
-    if (expiryField) {
-      const control = this.form.get('instrument');
-      control?.valueChanges.subscribe((val) => {
-        this.optionsMap['expiryDate'] = this.dfs.getExpiriesForInstrument(val);
-        this.form.get('expiryDate')?.setValue('');
-      });
-    }
+    return dependents;
   }
 
   findField(key: string): FormFieldConfig | undefined {
@@ -262,10 +257,9 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.form.valid && this.mode !== 'view') {
-    //   this.submitted.emit(this.form.getRawValue());
-    // }
-    this.submitted.emit(this.form.getRawValue());
+    if (this.form.valid && this.mode !== 'view') {
+      this.submitted.emit(this.form.getRawValue());
+    }
   }
 
   defaultValue(field: FormFieldConfig): any {

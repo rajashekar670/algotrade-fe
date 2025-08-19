@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, tap } from 'rxjs';
 import {
-  ExpiryDateModel,
   InstrumentModel,
 } from '../../core/models/api.response.model';
 import { InstrumentService } from '../../core/services/instrument.service';
 import { DropdownOption } from '../../core/models/drop-down-option.model';
+import { FormFieldConfig } from '../../core/models/form-schema.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,44 +14,48 @@ import { DropdownOption } from '../../core/models/drop-down-option.model';
 export class DynamicFormService {
   constructor(
     private http: HttpClient,
-    private instrumentService: InstrumentService
   ) {}
 
-  private instruments: InstrumentModel[] = [];
-
-  getOptions(endpoint: any): Observable<any[]> {
-    return this.http.get<any[]>(endpoint);
+  getFieldOptions(field: FormFieldConfig): DropdownOption[] {
+    let options: DropdownOption[] = [];
+    if (field.optionsEndpoint) {
+      this.http.get<any[]>(field.optionsEndpoint).subscribe((opts: any[]) => {
+        if (field.optionsMap) {
+          opts.forEach((opt) =>
+            options.push({
+              label: opt[field.optionsMap!.label],
+              value: opt[field.optionsMap!.value],
+            })
+          );
+        }
+      });
+    }
+    return options;
   }
 
-  getExpiries(instrument: string): Observable<string[]> {
-    if (!instrument) return of([]);
-    return of([]);
+  getDependentFieldOptions(
+    field: FormFieldConfig,
+    value: string
+  ): DropdownOption[] {
+    let options: DropdownOption[] = [];
+
+    if (field.optionsEndpoint && value) {
+      this.http
+        .get<any[]>(
+          field.optionsEndpoint.replace('{' + field.dependsOn + '}', value)
+        )
+        .subscribe((opts: any[]) => {
+          if (field.optionsMap) {
+            opts.forEach((opt) =>
+              options.push({
+                label: opt[field.optionsMap!.label],
+                value: opt[field.optionsMap!.value],
+              })
+            );
+          }
+        });
+    }
+    return options;
   }
 
-  loadInstrumentOptions(): Observable<DropdownOption<string>[]> {
-    return this.instrumentService.getAll().pipe(
-      tap((data) => (this.instruments = data)),
-      map((data) =>
-        data.map((i) => ({
-          value: i.name!,
-          label: i.name!,
-        }))
-      )
-    );
-  }
-
-  getCachedInstruments(): InstrumentModel[] {
-    return this.instruments;
-  }
-
-  getExpiriesForInstrument(instrument: string): DropdownOption[] {
-    return (
-      this.instruments
-        .find((i) => i.name === instrument)
-        ?.expiryDates?.map((date) => ({
-          value: date.expiryDate!,
-          label: date.expiryDate!,
-        })) || []
-    );
-  }
 }
