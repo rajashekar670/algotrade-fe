@@ -1,5 +1,4 @@
 import { environment } from './../../../environments/environment';
-import { StrategyTypeEnum } from './enums';
 
 export const API_ENDPOINTS = {
   AUTH: {
@@ -16,6 +15,10 @@ export const API_ENDPOINTS = {
     STOP: (id:string) => `${environment.apiUrl}/strategies/${id}/actions/stop`,
   },
   INSTRUMENT : {
-    GET_ALL: `${environment.apiUrl}/instruments`
+    GET_ALL: `${environment.apiUrl}/instruments`,
+    EXPIRY_DATES: `${environment.apiUrl}/instruments/{instrument}/expiryDates`
+  },
+  BROKER : {
+    GET_ALL : `${environment.apiUrl}/brokers`
   }
 };

@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from '../constants/api-endpoints';
 import {
   OPTION_TYPE_OPTIONS,
   STRATEGY_EXPIRY_OPTIONS,
@@ -16,12 +17,17 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     label: 'Instrument',
     type: 'select',
     required: true,
+    optionsEndpoint: API_ENDPOINTS.INSTRUMENT.GET_ALL,
+    optionsMap: { label: 'name', value: 'name' },
   },
   {
     key: 'expiryDate',
     label: 'Expiry Date',
     type: 'select',
     required: true,
+    optionsEndpoint: API_ENDPOINTS.INSTRUMENT.EXPIRY_DATES,
+    dependsOn: 'instrument',
+    optionsMap: { label: 'expiryDate', value: 'expiryDate' },
   },
   {
     key: 'quantity',
@@ -63,9 +69,10 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
   {
     key: 'broker',
     label: 'Broker',
-    type: 'text',
+    type: 'select',
     required: true,
-    defaultValue: 'YP08050',
+    optionsEndpoint: API_ENDPOINTS.BROKER.GET_ALL,
+    optionsMap: { label: 'broker', value: 'id' },
   },
   {
     key: 'expiry',
