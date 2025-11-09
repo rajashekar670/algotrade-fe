@@ -35,7 +35,7 @@
       </mat-form-field>
       }
       <!-- Select -->
-      @else if(field.type === 'select' && isVisible(field)) {
+      @else if(field.type === 'select' && isVisible(field) && evaluateVisibleIf(field)) {
       <mat-form-field appearance="fill" style="width: 100%">
         <mat-label> {{ field.label }} </mat-label>
         <mat-select

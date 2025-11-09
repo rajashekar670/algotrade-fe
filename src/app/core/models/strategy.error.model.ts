@@ -13,5 +13,6 @@ export interface StrategyErrorModel {
   startTime?: string;
   endTime?: string;
   target?: string;
+  stopLoss?: string;
   logsEnabled?: string;
 }

@@ -18,6 +18,16 @@ export enum StraddleAdjustmentType {
   Straddle = 'STRADDLE',
 }
 
+export enum StraddleStopLossType {
+  Combined = 'COMBINED',
+  Individual = 'INDIVIDUAL',
+}
+
+export enum StraddleStopLossExitType {
+  Single = 'SINGLE',
+  Individual = 'INDIVIDUAL',
+}
+
 export enum StrategyTypeEnum {
   ShortStrangle = 'SHORT_STRANGLE',
   ShortStraddle = 'SHORT_STRADDLE'
