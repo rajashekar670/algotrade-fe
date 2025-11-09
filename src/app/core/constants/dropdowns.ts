@@ -3,6 +3,8 @@ import {
   Expiry,
   OptionTypeEnum,
   StraddleAdjustmentType,
+  StraddleStopLossExitType,
+  StraddleStopLossType,
   StrangleEntryType,
   StrategyStatus,
 } from './enums';
@@ -37,4 +39,16 @@ export const STRANGLE_ENTRY_TYPE_OPTIONS: DropdownOption<StrangleEntryType>[] =
   [
     { value: StrangleEntryType.Premium, label: 'Premium' },
     { value: StrangleEntryType.StrikePrice, label: 'Strike Price' },
+  ];
+
+export const STRADDLE_STOP_LOSS_TYPE_OPTIONS: DropdownOption<StraddleStopLossType>[] =
+  [
+    { value: StraddleStopLossType.Combined, label: 'Combined' },
+    { value: StraddleStopLossType.Individual, label: 'Individual' },
+  ];
+
+  export const STRADDLE_STOP_LOSS_EXIT_TYPE_OPTIONS: DropdownOption<StraddleStopLossExitType>[] =
+  [
+    { value: StraddleStopLossExitType.Single, label: 'Single' },
+    { value: StraddleStopLossExitType.Individual, label: 'Individual' },
   ];

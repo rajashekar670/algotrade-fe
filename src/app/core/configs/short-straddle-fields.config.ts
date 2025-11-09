@@ -1,5 +1,9 @@
-import { STRADDLE_ADJUSTMENT_OPTIONS } from "../constants/dropdowns";
-import { FormFieldConfig } from "../models/form-schema.model";
+import {
+  STRADDLE_ADJUSTMENT_OPTIONS,
+  STRADDLE_STOP_LOSS_EXIT_TYPE_OPTIONS,
+  STRADDLE_STOP_LOSS_TYPE_OPTIONS,
+} from '../constants/dropdowns';
+import { FormFieldConfig } from '../models/form-schema.model';
 
 export const ShortStraddleFields: FormFieldConfig[] = [
   {
@@ -23,14 +27,41 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     label: 'Call StopLoss StrikePrice',
     type: 'number',
     defaultValue: 0,
-    visible: ['edit','view']
+    visible: ['edit', 'view'],
   },
   {
     key: 'putStopLossStrikePrice',
     label: 'Put StopLoss StrikePrice',
     type: 'number',
     defaultValue: 0,
-    visible: ['edit','view']
+    visible: ['edit', 'view'],
+  },
+  {
+    key: 'stopLossType',
+    label: 'Stop Loss Type',
+    type: 'select',
+    options: STRADDLE_STOP_LOSS_TYPE_OPTIONS,
+    visibleIf: "adjustmentType == 'STOPLOSS'",
+    requiredIf: "adjustmentType == 'STOPLOSS'",
+  },
+
+  {
+    key: 'combinedStopLossPercentage',
+    label: 'Combined StopLoss %',
+    type: 'number',
+    required: true,
+    defaultValue: 20,
+    visibleIf: "stopLossType == 'COMBINED'",
+    requiredIf: "stopLossType == 'COMBINED'",
+  },
+  {
+    key: 'combinedStopLossPremium',
+    label: 'Combined StopLoss Premium',
+    type: 'number',
+    required: true,
+    defaultValue: 20,
+    visibleIf: "stopLossType == 'COMBINED'",
+    requiredIf: "stopLossType == 'COMBINED'",
   },
   {
     key: 'callStopLossPercentage',
@@ -38,8 +69,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 35,
-    visibleIf: "adjustmentType == 'STOPLOSS'",
-    requiredIf: "adjustmentType == 'STOPLOSS'",
+    visibleIf: "stopLossType == 'INDIVIDUAL'",
+    requiredIf: "stopLossType == 'INDIVIDUAL'",
   },
   {
     key: 'putStopLossPercentage',
@@ -47,8 +78,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 35,
-    visibleIf: "adjustmentType == 'STOPLOSS'",
-    requiredIf: "adjustmentType == 'STOPLOSS'",
+    visibleIf: "stopLossType == 'INDIVIDUAL'",
+    requiredIf: "stopLossType == 'INDIVIDUAL'",
   },
   {
     key: 'callStopLossPremium',
@@ -56,8 +87,8 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
-    visibleIf: "adjustmentType == 'STOPLOSS'",
-    requiredIf: "adjustmentType == 'STOPLOSS'",
+    visibleIf: "stopLossType == 'INDIVIDUAL'",
+    requiredIf: "stopLossType == 'INDIVIDUAL'",
   },
   {
     key: 'putStopLossPremium',
@@ -65,8 +96,16 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
-    visibleIf: "adjustmentType == 'STOPLOSS'",
-    requiredIf: "adjustmentType == 'STOPLOSS'",
+    visibleIf: "stopLossType == 'INDIVIDUAL'",
+    requiredIf: "stopLossType == 'INDIVIDUAL'",
+  },
+  {
+    key: 'stopLossExitType',
+    label: 'Stop Loss Exit Type',
+    type: 'select',
+    options: STRADDLE_STOP_LOSS_EXIT_TYPE_OPTIONS,
+    visibleIf: "stopLossType == 'INDIVIDUAL'",
+    requiredIf: "stopLossType == 'INDIVIDUAL'",
   },
   {
     key: 'bufferStopLossForStrikePrice',
@@ -74,7 +113,7 @@ export const ShortStraddleFields: FormFieldConfig[] = [
     type: 'number',
     required: true,
     defaultValue: 0,
-    visible:[]
+    visible: [],
   },
   {
     key: 'maxDiffAdjustmentPercentage',

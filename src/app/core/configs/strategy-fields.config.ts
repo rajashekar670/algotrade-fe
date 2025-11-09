@@ -104,12 +104,20 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     defaultValue: [14, 0],
   },
   {
+    key: 'stopLoss',
+    label: 'Stop Loss',
+    type: 'number',
+    required: true,
+    defaultValue: 0,
+  },
+  {
     key: 'target',
     label: 'Target',
     type: 'number',
     required: true,
     defaultValue: 0,
   },
+
   {
     key: 'pl',
     label: 'Profit Loss',
