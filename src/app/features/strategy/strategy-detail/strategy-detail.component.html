@@ -8,8 +8,10 @@
   >
     <mat-icon>arrow_back_ios_new</mat-icon>
   </button>
-
+ @if(schema) {
   <span class="toolbar-title">{{ strategyTypeService.getLabel(strategyData.strategy) }} Details </span>
+ }
+
 </mat-toolbar>
 <div class="strategy-details">
   @if(schema) {
