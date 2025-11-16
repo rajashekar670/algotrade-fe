@@ -101,7 +101,7 @@ export const StrategyFormCommonFields: FormFieldConfig[] = [
     label: 'End Time',
     type: 'datetime-local',
     required: true,
-    defaultValue: [14, 0],
+    defaultValue: [14, 30],
   },
   {
     key: 'stopLoss',

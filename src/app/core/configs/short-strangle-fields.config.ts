@@ -135,4 +135,17 @@ export const ShortStrangleFields: FormFieldConfig[] = [
     required: true,
     defaultValue: '15:00'
   },
+  {
+    key: 'adjustmentsLimit',
+    label: 'Adjustments Limit',
+    type: 'number',
+    defaultValue: 0
+  },
+  {
+    key: 'totalAdjustments',
+    label: 'Total Adjustments',
+    type: 'number',
+    defaultValue: 0,
+    visible: ['view'],
+  },
 ];
